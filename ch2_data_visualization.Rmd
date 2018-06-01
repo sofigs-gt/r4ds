@@ -112,10 +112,18 @@ mpg %>%
  
  
  You can also set asthetic properties manually
+ 
+ This failed because I put the manual asthetic property inside the function *aes* instead of outside.
 ```{r}
 mpg %>% 
   ggplot() +
   geom_point(mapping = aes(x = displ, y = hwy, color = "cyan"))
+```
+ 
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = displ, y = hwy), color = "cyan")
 ```
  
  
