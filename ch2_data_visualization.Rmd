@@ -1,0 +1,121 @@
+---
+title: "Chapter 2 - Data Visualization with ggplot2"
+output: html_notebook
+---
+
+```{r setup}
+library(tidyverse)
+```
+
+```{r}
+mpg
+```
+
+Create a plot of a car's engine siza (displ) and its fuel efficiency (hwy). I'm going to be using the pipe operator %ª% because it improves readability even tough it is introduced in later chapters.
+```{r}
+mpg %>%
+  ggplot() + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+ggplot create a coordinate system. You can add layers to get exactly the graphic you want. Ggplot when run without any additional code creates a blank rectangle.
+```{r}
+ggplot()
+```
+  *geom_point* creates a scatterplot
+  *mapping* is used to tell ggplot how to graph/visualize the variables you are interested in. It always goes in had with *aes*. For a scatterplot you must indicate within *aes* the x and y variables within the data.
+  
+  
+  ## Graphing Template
+
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+  
+Using the pipe operator
+
+<DATA> %>% 
+  ggplot() +
+    <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+    
+    
+Exercises
+
+ Run ggplot(data = mpg). What do you see?
+```{r}
+ggplot(data = mpg)
+```
+ 
+
+How many rows are in mpg? How many columns?
+```{r}
+dim(mpg)
+```
+
+
+What does the drv variable describe? Read the help for ?mpg to find out.
+f = front-wheel drive, r = rear wheel drive, 4 = 4wd
+
+
+Make a scatterplot of hwy vs cyl.
+```{r}
+mpg %>%
+  ggplot() +
+  geom_point(mapping = aes(x = hwy, y = cyl))
+```
+
+What happens if you make a scatterplot of class vs drv? Why is the plot not useful?
+It's not usefull because they are both categorical variables.
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = class, y = drv))
+```
+ 
+ Asthetic mappings
+ An aesthetic is a visual property of the objects in your plot. 
+ Asthetics include the shape, color or sizes of the shapes in the plot. When talking about asthetics, we talk about levels instead of values.
+ 
+ You can assign diferent levels to a variable in the data.
+ 
+ Here you can see the mapping of colors. You can map the colors of your points to variables in the data
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+ 
+ Here you can see the mapping of sizes to the class variable
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```
+ 
+ alpha controls the transparency
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
+```
+ 
+ shape of the points
+```{r}
+mpg %>% 
+  ggplot() + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+ 
+ x and y are asthetics. Visual properties that you can map to variables to display information about the data
+ In my own words, just like class can make color appear depending on the variable assigned, so can x and y make a plot appear by graphing it in the cartesian plane.
+ 
+ Ggplot automates a lot of things after you map it to a variable. For x-y points, it creates an axis line, with color, size, shape it creates a legend.
+ 
+ 
+ You can also set asthetic properties manually
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(mapping = aes(x = displ, y = hwy, color = "cyan"))
+```
+ 
+ 
